@@ -1,4 +1,7 @@
-// modify boolalpha flag
+/*
+*   boolalpha - converting bool to string
+*/
+
 #include <iostream>
 
 int main () {
