@@ -20,7 +20,6 @@
 #include <string.h>
 #include <bitset>
 #define ASCII_SIZE 256
-#define BITS_PER_BYTES 8
 
 bool isUniqueChar1(const std::string& input) {
     if (input.length() > ASCII_SIZE) return false;
