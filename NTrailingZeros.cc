@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:  a.cc
+ *       Filename:  TrailingZeros.cc
  *
- *    Description:  Test
+ *    Description:  Program to find number of trailing zeros
  *
  *        Version:  1.0
  *        Created:  01/26/12 12:05:55
