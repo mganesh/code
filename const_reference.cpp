@@ -17,17 +17,16 @@ public:
 };
 
 class Derived : public Base {
-    private:
-    public:
-        Derived() {
-            m_name = "Derived";
-        }
-        std::string name() const {
-            return m_name;
-        }
-        virtual void display() const {
-            std::cout << "Derived::display()\n";
-        }
+public:
+    Derived() {
+        m_name = "Derived";
+    }
+    std::string name() const {
+        return m_name;
+    }
+    virtual void display() const {
+        std::cout << "Derived::display()\n";
+    }
 };
 
 /* Since the parameter b is passed by-value
