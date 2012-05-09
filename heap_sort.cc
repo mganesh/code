@@ -15,23 +15,23 @@ private:
         return (pos-1)/2;
     }
 
-    public:
-        Heap() {
+public:
+    Heap() {
+    }
+    Heap(size_t n) {
+        elements.reserve(n);
+    }
+    T top() throw() {
+        if (empty()) {
+            throw std::string ("invalid index");
         }
-        Heap(size_t n)
-        {
-            elements.reserve(n);
-        }
-        T top() throw() {
-            if (empty())
-                throw std::string ("invalid index");
-            return elements[0];
-        }
-        size_t size() {
-            return elements.size();
-        }
-        void push(T key); 
-        void pop(); 
+        return elements[0];
+    }
+    size_t size() {
+        return elements.size();
+    }
+    void push(T key); 
+    void pop(); 
 };
 
 template<typename T>
