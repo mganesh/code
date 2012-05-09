@@ -7,13 +7,13 @@ class noncopyable {
 protected:
     noncopyable() { std::cout << "noncopyable .. \n"; }
     ~noncopyable() { std::cout << "~noncopyable .. \n"; }
+    
 private:
     noncopyable(const noncopyable&);
     noncopyable& operator=(const noncopyable&);
 };
 
 class myclass : private noncopyable {
-    
     
 public:
     myclass() { std::cout << "MyClass ..\n"; }
@@ -22,6 +22,7 @@ public:
     
     }
     ~myclass() { std::cout << "~MyClass ..\n"; }
+    
 private:
     std::string m_name;
 };
