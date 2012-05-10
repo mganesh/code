@@ -28,6 +28,27 @@ void bubble_sort(T first, T last) {
     }
 }
 
+template <typename T>
+void selection_sort(T first, T last) {
+    std::cout << "Selection Sort" << std::endl;
+    typename std::iterator_traits<T>::difference_type size = std::distance(first, last);
+    for(int i=0; i<size; ++i) {
+        T start = first+i;
+        T min_pos = start;
+        for(int j=i; j<size; ++j) {
+            if (*min_pos > *start){
+                min_pos = start;
+            }
+            ++start;
+        }
+        // swap min pos to ith pos
+        typename std::iterator_traits<T>::value_type temp = *min_pos;
+        *min_pos = *(first+i);
+        *(first+i) = temp;
+
+    }
+}
+
 int main() {
 
     std::vector<int> input;
@@ -42,7 +63,8 @@ int main() {
         std::cout << " " << *it;
     std::cout << std::endl;
 
-    bubble_sort(input.begin(), input.end());
+    //bubble_sort(input.begin(), input.end());
+    selection_sort(input.begin(), input.end());
 
     std::cout << "After:";
     for(it = input.begin(); it != input.end(); ++it)
