@@ -24,18 +24,25 @@ private:
     typedef std::multimap<double, Order*, std::greater<double> > BidOrders;
     typedef std::multimap<double, Order*, std::less<double> > AskOrders;
     
+    
 public:
     
     void match(Order& newOrder);
     void add(Order& newOrder);
     Order& remove(Order::Side side, const std::string &orderId);
+    double getLastTradedQuantity() { return m_LastTradedQuantity; }
+    long getLastTradedSize() { return m_LastTradedQuantity; }
     
 private:
     void match(Order& newOrder, Order& bookOrder);
+    
 private:
     BidOrders m_bidOrders;
     AskOrders m_askOrders;
     std::string m_symbol;
+    
+    double m_LastTradedPrice;
+    long m_LastTradedQuantity;
 };
     
 }

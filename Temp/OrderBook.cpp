@@ -21,6 +21,7 @@ OrderBook::~OrderBook() {
 }
     
 void OrderBook::match(Order& newOrder) {
+    
     if (newOrder.getSide() == Order::BUY) {
         while(true) {
             
@@ -65,12 +66,25 @@ void OrderBook::match(Order& newOrder) {
     }
 }
     
-    void OrderBook::match(Order &newOrder, Order &bookOrder) {
+void OrderBook::match(Order &newOrder, Order &bookOrder) {
+    
+    
+    if (newOrder.getSide() == bookOrder.getSide())
+        return;
+    
+    if (
+        (newOrder.getSide() == Order::BUY 
+         && newOrder.getPrice() >= bookOrder.getPrice())
         
-        if (newOrder.getSide() == bookOrder.getSide())
-            return;
-        
+        || (newOrder.getSide() == Order::SELL
+            && newOrder.getPrice() <= bookOrder.getPrice())
+        )
+    {
+        m_LastTradedPrice = bookOrder.getPrice();
+        m_LastTradedQuantity = bookOrder.getQuantity();
         
     }
+         
+}
 
 }

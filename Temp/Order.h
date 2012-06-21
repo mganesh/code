@@ -3,7 +3,6 @@
 //  ExchangeFeed
 //
 //  Created by Ganesh M on 20/6/12.
-//  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
 #ifndef ExchangeFeed_Order_h
@@ -21,13 +20,13 @@ public:
         SELL = 2
     };
     
-    Order(const std::string &orderId,
+    Order(unsigned orderId,
           Side side,
           long quantity,
           double price);
     ~Order();
     
-    const std::string &getOrderId() const { return m_orderId;}
+    unsigned getOrderId() { return m_orderId;}
     Side getSide() const { return m_side; }
     double getPrice() const { return m_price; }
     long getQuantity() const { return m_quantity;}
@@ -41,7 +40,7 @@ public:
     
 private:
     
-    std::string m_orderId;
+    unsigned m_orderId;
     Side m_side;
     
     double m_price;
