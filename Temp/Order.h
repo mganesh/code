@@ -29,7 +29,8 @@ public:
     unsigned getOrderId() { return m_orderId;}
     Side getSide() const { return m_side; }
     double getPrice() const { return m_price; }
-    long getQuantity() const { return m_quantity;}
+    long getQuantity() const { return m_quantity; }
+
     bool isOpen() { return m_openQuantity > 0; }
     
     void setPrice(double price) { m_price = price; }
@@ -38,6 +39,9 @@ public:
     
     void fill(double price, long quantity);
     
+    double lastExecutedPrice() { return m_lastExecutedPrice; }
+    long lastExecutedQuantity() { return m_lastExecutedQuantity; }
+    long getOpenQuantity() { return m_openQuantity; }
 private:
     
     unsigned m_orderId;

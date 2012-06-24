@@ -25,6 +25,8 @@ Order::Order(unsigned orderId,
     
 }
 
+Order::~Order() { }
+
 void Order::setQuantity(long quantity) {
     
     if (quantity <= m_executedQuantity) {
