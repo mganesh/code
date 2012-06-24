@@ -11,10 +11,16 @@
 
 #include <map>
 #include <string>
+#include <vector>
+#include <math.h>
+
 #include "Order.h"
 #include "Exceptions.h"
 
+
 namespace feed {
+    bool isAlmostSame(double, double);
+    void split(const std::string& s, char delim, std::vector<std::string> &result);
     
 class OrderBook {
 public:
@@ -30,18 +36,24 @@ private:
     
     typedef std::multimap<unsigned, pos> OrderMap;
     OrderMap m_OrderMap;
+
     
 public:
+    void processMsg(const std::string& order_msg);
     void match(Order& newOrder);
     void add(Order& newOrder);
-    Order& remove(Order::Side side, unsigned &orderId);
+    void remove(Order::Side side, long quantity, double price, unsigned &orderId);
     double getLastTradedPrice() { return m_LastTradedPrice; }
     long getLastTradedSize() { return m_LastTradedQuantity; }
     void printOrderBook();
+    double midQuotes();
+    void printTradeStats();
     
 private:
     void match(Order& newOrder, Order& bookOrder);
-    
+    Order::Side getSide(const std::string& side);
+    double getPrice(const std::string& price);
+    long getSize(const std::string& size);
 private:
     BidOrders m_bidOrders;
     AskOrders m_askOrders;

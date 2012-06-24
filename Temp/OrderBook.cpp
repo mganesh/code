@@ -8,9 +8,26 @@
 
 #include <iostream>
 #include <sstream>
+#include <iterator>
+#include <limits>
+#include <vector>
+#include <assert.h>
 #include "OrderBook.h"
 
 namespace feed {
+    
+bool isAlmostSame(double a, double b) {
+    static const double epsilon = std::numeric_limits<double>::epsilon();
+    return fabs(a-b) < epsilon;
+}
+    
+void split(const std::string& s, char delim, std::vector<std::string> &result) {
+    std::stringstream ss(s);
+    std::string token;
+    while (std::getline(ss, token, delim)) {
+        result.push_back(token);
+    }
+}
     
 OrderBook::OrderBook(const std::string &symbol)
     : m_symbol(symbol)
@@ -21,6 +38,68 @@ OrderBook::OrderBook(const std::string &symbol)
 OrderBook::~OrderBook() {
     // TODO:
     // cleanup Orderbook.
+}
+
+void OrderBook::processMsg(const std::string& msg) {
+
+    std::cout << "processMsg: " << msg << std::endl;
+    
+    if (msg.empty()) return;
+    
+    typedef std::vector<std::string> Tokens;
+    Tokens tokens;
+    split(msg, ',', tokens);
+    
+    //Validate input
+    if (tokens.size() != 5) {
+        std::ostringstream oss;
+        oss << "Invalid Msg (" << msg << ")";
+        throw InvalidOrder(oss.str());
+    }
+    
+    unsigned order_id = ::atoi(tokens[1].c_str());
+    Order::Side side = getSide(tokens[2]);
+    long quantity = getSize(tokens[3]);
+    double price = getPrice(tokens[4]);
+
+    if (tokens[0] == "A") {
+        if (m_OrderMap.find(order_id) != m_OrderMap.end()) {
+            // duplicate order id;
+            std::ostringstream oss;
+            oss << "Duplicate Order id: " << order_id;
+            throw InvalidOrder(oss.str());
+        }
+        
+        Order* order = new Order(order_id, side,
+                                 quantity, price);
+        add(*order);
+    }
+    else if (tokens[0] == "X") {
+        // get order & check price & quantity matches
+        remove(side, quantity, price, order_id);
+    }
+    else if (tokens[0] == "M") {
+        OrderMap::iterator pos = m_OrderMap.find(order_id);
+        if (pos == m_OrderMap.end()) {
+            // duplicate order id;
+            std::ostringstream oss;
+            oss << "Order id: " << order_id
+                << ", Not Found!!";
+            throw InvalidOrder(oss.str());
+        }
+        
+        Order* original = pos->second->second;
+        if (original->getSide() != side) {
+            std::ostringstream oss;
+            oss << "Modify request, side mismatch in order request: " << order_id;
+            throw InvalidOrder(oss.str());
+        }
+        
+        original->setPrice(price);
+        original->setQuantity(quantity);
+            
+    }
+    printOrderBook();
 }
     
 void OrderBook::match(Order& newOrder) {
@@ -38,7 +117,6 @@ void OrderBook::match(Order& newOrder) {
             /* not matching */
             if (newOrder.getPrice() < bookOrder.getPrice())
                 return;
-            
             match(newOrder, bookOrder);
             if(!bookOrder.isOpen()) {
                 m_askOrders.erase(it);
@@ -85,12 +163,29 @@ void OrderBook::match(Order &newOrder, Order &bookOrder) {
             && newOrder.getPrice() <= bookOrder.getPrice())
         )
     {
-        m_LastTradedPrice = bookOrder.getPrice();
-        m_LastTradedQuantity = std::min(newOrder.getQuantity(), bookOrder.getQuantity());
         
-        newOrder.fill(m_LastTradedPrice, m_LastTradedQuantity);
-        bookOrder.fill(m_LastTradedPrice, m_LastTradedQuantity);
+        double price = bookOrder.getPrice();
+        std::cout << newOrder.getOpenQuantity() << ", "
+                  << bookOrder.getOpenQuantity() << std::endl;
         
+        long quantity = std::min(newOrder.getOpenQuantity(), bookOrder.getOpenQuantity());
+        
+        
+        newOrder.fill(price, quantity);
+        bookOrder.fill(price, quantity);
+        
+        if (isAlmostSame(m_LastTradedPrice, price)) {
+            m_LastTradedQuantity += quantity;
+        }
+        else {
+            m_LastTradedQuantity = quantity;
+        }
+        
+        assert(newOrder.lastExecutedQuantity() == quantity);
+        assert(isAlmostSame(newOrder.lastExecutedPrice(), price));
+        
+        m_LastTradedPrice = price;
+        printTradeStats();
     }
          
 }
@@ -120,9 +215,35 @@ void OrderBook::add(Order& newOrder) {
     }
 }
 
-Order& OrderBook::remove(Order::Side side, unsigned &orderId) {
+void OrderBook::remove(Order::Side side
+                       , long quantity
+                       , double price
+                       , unsigned &orderId) {
     
     Order* removedOrder = NULL;
+    
+    // Order id valid ?
+    OrderMap::iterator pos = m_OrderMap.find(orderId);
+    if (pos == m_OrderMap.end()) {
+        std::ostringstream oss;
+        oss << "Invalid Order id: " << orderId;
+        throw InvalidOrder(oss.str());
+    }
+    
+    Order* OriginalOrder = pos->second->second;
+    if (!OriginalOrder) return;
+    
+    if ( side != OriginalOrder->getSide()
+        || quantity != OriginalOrder->getQuantity()
+        || !isAlmostSame(price, OriginalOrder->getPrice())) {
+        
+        // Order information not matching
+        std::ostringstream oss;
+        oss << "Remove Order request not matching " << orderId;
+        throw InvalidOrder(oss.str());
+    }
+    
+    
     if (side == Order::BUY) {
         
         BidOrders::iterator start = m_bidOrders.begin();
@@ -132,7 +253,7 @@ Order& OrderBook::remove(Order::Side side, unsigned &orderId) {
                 // match found
                 removedOrder = start->second;
                 m_bidOrders.erase(start);
-                return *removedOrder;
+                return;
             }
         }
     }
@@ -145,7 +266,7 @@ Order& OrderBook::remove(Order::Side side, unsigned &orderId) {
                 // match found
                 removedOrder = start->second;
                 m_askOrders.erase(start);
-                return *removedOrder;
+                return;
             }
         }
     }
@@ -153,7 +274,7 @@ Order& OrderBook::remove(Order::Side side, unsigned &orderId) {
 
 void OrderBook::printOrderBook() {
     std::ostringstream oss;
-    oss << "Order Book: "
+    oss << "\nOrder Book: "
         << "\n============";
 
     oss << "\nBuy: ";
@@ -180,7 +301,58 @@ void OrderBook::printOrderBook() {
         }
     }
     
+    try {
+        oss << "\nMid Quotes: ";
+        oss << midQuotes();;
+    } catch (const FeedException& e) {
+        oss << e.what();
+    }
+    
     std::cout << oss.str() << std::endl;
 }
+
+void OrderBook::printTradeStats() {
+
+    std::ostringstream oss;
+    oss << "Traded: " << m_LastTradedQuantity
+        << "@" << m_LastTradedPrice;
+    std::cout << oss.str() << std::endl;
+}
+
+double OrderBook::midQuotes() {
+    if (m_bidOrders.empty() || m_askOrders.empty())
+        throw InvalidMidQuote();
+    double bestbid = m_bidOrders.begin()->first;
+    double bestask = m_askOrders.begin()->first;
+    return(bestbid+bestask)/2;
+
+}
     
+Order::Side OrderBook::getSide(const std::string &side)
+{
+    if (side == "B")
+        return Order::BUY;
+    else if (side == "S")
+        return Order::SELL;
+    throw InvalidOrder("Invalid Side");
+}
+
+double OrderBook::getPrice(const std::string &price) {
+    double result = ::atof(price.c_str());
+    if (result > 0.0)
+        return result;
+    std::ostringstream oss;
+    oss << "Illegal Price: " << price;
+    throw InvalidOrder(oss.str());
+}
+
+long OrderBook::getSize(const std::string &size) {
+    long result = ::atol(size.c_str());
+    if (result > 0)
+        return result;
+    std::ostringstream oss;
+    oss << "Illegal Quantity: " << size;
+    throw InvalidOrder(oss.str());
+}
+
 }
