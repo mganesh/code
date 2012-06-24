@@ -18,19 +18,27 @@ int main (int argc, const char * argv[])
     std::string line;
 
     std::ifstream infile;
-    infile.open("/Users/mganesh/Documents/ExchangeFeed/ExchangeFeed/input.txt", std::ifstream::in);
+    infile.open("./input.txt", std::ifstream::in);
     if (!infile.is_open()) {
         std::cerr << "Failed to open file!!" << std::endl;
     }
     
+	unsigned long count=0;
     while (std::getline(infile, line)) {
-        //std::cout << line << std::endl;
+		std::cout << "\n====================================\n";
+		std::cout << "[INPUT] " << line << std::endl;
         try {
             orderbook.processMsg(line);
+			/*
+			std::cout << "Mid Quotes: ";
+			std::cout << orderbook.midQuotes() << std::endl;
+			*/
         }
         catch (const feed::FeedException& e) {
-            std::cerr << e.what() << std::endl;
+            std::cerr << "Error[" << e.error_code() << "]: " << e.what() << std::endl;
         }
+		if (++count%10 == 0 || 1)
+			orderbook.printOrderBook();
     }
     
     std::cout << "The End !! " << std::endl;

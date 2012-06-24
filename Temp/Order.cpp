@@ -25,7 +25,8 @@ Order::Order(unsigned orderId,
     
 }
 
-Order::~Order() { }
+Order::~Order() { 
+}
 
 void Order::setQuantity(long quantity) {
     

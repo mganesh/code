@@ -12,6 +12,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <set>
 #include <math.h>
 
 #include "Order.h"
@@ -28,16 +29,19 @@ public:
     ~OrderBook();
     
 private:
-    typedef std::multimap<double, Order* > GenericOrders;
+    typedef std::multimap<unsigned, Order* > GenericOrders;
     typedef GenericOrders::iterator pos;
     
-    typedef std::multimap<double, Order*, std::greater<double> > BidOrders;
-    typedef std::multimap<double, Order*, std::less<double> > AskOrders;
+    typedef std::multimap<double, pos, std::greater<double> > BidOrders;
+    typedef std::multimap<double, pos, std::less<double> > AskOrders;
     
-    typedef std::multimap<unsigned, pos> OrderMap;
+    typedef std::multimap<unsigned, Order*> OrderMap;
     OrderMap m_OrderMap;
 
-    
+	typedef std::map<Exception::Errors, unsigned> IllegalMsg;
+	IllegalMsg illegalMsg;
+
+
 public:
     void processMsg(const std::string& order_msg);
     void match(Order& newOrder);
