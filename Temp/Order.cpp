@@ -10,9 +10,9 @@
 
 namespace feed {
 
-Order::Order(unsigned orderId,
+Order::Order(uint64_t orderId,
              Side side,
-             long quantity,
+             uint64_t quantity,
              double price)
 : m_orderId(orderId)
 , m_side(side)
@@ -22,14 +22,14 @@ Order::Order(unsigned orderId,
 , m_executedQuantity(0)
 , m_lastExecutedPrice(0.0)
 , m_lastExecutedQuantity(0) {
-    
+
 }
 
-Order::~Order() { 
+Order::~Order() {
 }
 
-void Order::setQuantity(long quantity) {
-    
+void Order::setQuantity(uint64_t quantity) {
+
     if (quantity <= m_executedQuantity) {
         m_quantity = m_executedQuantity;
         m_openQuantity = 0;
@@ -39,13 +39,13 @@ void Order::setQuantity(long quantity) {
         m_openQuantity = m_quantity - m_executedQuantity;
     }
 }
- 
-void Order::fill(double price, long quantity)  {
-    
+
+void Order::fill(double price, uint64_t quantity)  {
+
     m_openQuantity -= quantity;
     m_executedQuantity += quantity;
     m_lastExecutedQuantity = quantity;
     m_lastExecutedPrice = price;
 }
-    
+
 }
