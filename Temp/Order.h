@@ -8,54 +8,56 @@
 #ifndef ExchangeFeed_Order_h
 #define ExchangeFeed_Order_h
 
+#include <stdint.h>
 #include <string>
 
 namespace feed {
-    
+
 class Order {
 public:
-    
+
     enum Side {
         BUY = 1,
         SELL = 2
     };
-    
-    Order(unsigned orderId,
+
+    Order(uint64_t orderId,
           Side side,
-          long quantity,
+          uint64_t quantity,
           double price);
     ~Order();
-    
-    unsigned getOrderId() { return m_orderId;}
+
+    uint64_t getOrderId() { return m_orderId;}
     Side getSide() const { return m_side; }
     double getPrice() const { return m_price; }
-    long getQuantity() const { return m_quantity; }
+    uint64_t getQuantity() const { return m_quantity; }
 
     bool isOpen() { return m_openQuantity > 0; }
-    
+
     void setPrice(double price) { m_price = price; }
-    void setQuantity(long quantity);
-    void setOpenQuantity(long openQuantity) { m_openQuantity = openQuantity; }
-    
-    void fill(double price, long quantity);
-    
+    void setQuantity(uint64_t quantity);
+    void setOpenQuantity(uint64_t openQuantity) { m_openQuantity = openQuantity; }
+
+    void fill(double price, uint64_t quantity);
+
     double lastExecutedPrice() { return m_lastExecutedPrice; }
-    long lastExecutedQuantity() { return m_lastExecutedQuantity; }
-    long getOpenQuantity() { return m_openQuantity; }
+    uint64_t lastExecutedQuantity() { return m_lastExecutedQuantity; }
+    uint64_t getOpenQuantity() { return m_openQuantity; }
 private:
-    
-    unsigned m_orderId;
+
+    uint64_t m_orderId;
     Side m_side;
-    
+
     double m_price;
     double m_lastExecutedPrice;
-    
-    long m_quantity;
-    long m_openQuantity;
-    long m_executedQuantity;
-    long m_lastExecutedQuantity;
-    
+
+    uint64_t m_quantity;
+    uint64_t m_openQuantity;
+    uint64_t m_executedQuantity;
+    uint64_t m_lastExecutedQuantity;
+
 };
 }
 
 #endif
+
