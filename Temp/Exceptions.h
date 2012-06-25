@@ -1,4 +1,3 @@
-//
 //  Exceptions.h
 //  ExchangeFeed
 //
@@ -16,46 +15,48 @@
 namespace feed {
 
 namespace Exception {
-	enum Errors {
-		UNKNOWN = 0,
-		INVALID_INPUT = 1,
-		DUPLICATE_ORDER_ID,
-		INVALID_ORDER_ID_MODIFY,
-		INVALID_REQUEST_MODIFY,
-		INVALID_ORDER_ID_REMOVE,
-		INVALID_REQUEST_REMOVE,
-		INVALID_PRICE,
-		INVALID_QUANTITY,
-		INVALID_SIDE,
-		INVALID_MIDQUOTES
-	};
+    enum Errors {
+        UNKNOWN = 0,
+        INVALID_INPUT = 1,
+        INVALID_ACTION,
+        ILLEGAL_ORDER_ID,
+        DUPLICATE_ORDER_ID,
+        INVALID_ORDER_ID_MODIFY,
+        INVALID_REQUEST_MODIFY,
+        INVALID_ORDER_ID_REMOVE,
+        INVALID_REQUEST_REMOVE,
+        INVALID_PRICE,
+        INVALID_QUANTITY,
+        INVALID_SIDE,
+        INVALID_MIDQUOTES
+    };
 }
 
 
 struct FeedException : public std::runtime_error {
     explicit FeedException(Exception::Errors code, const std::string& error)
     : std::runtime_error(error)
-	, m_error_code(code) { }
+    , m_error_code(code) { }
 
-	Exception::Errors error_code() const
-	{
-		return m_error_code;
-	}
+    Exception::Errors error_code() const
+    {
+        return m_error_code;
+    }
 private:
-	Exception::Errors m_error_code;
+    Exception::Errors m_error_code;
 };
 
 struct InvalidOrder : public FeedException {
     InvalidOrder(Exception::Errors code, const std::string& error)
     : FeedException(code, error)
-	, m_error_code(code){ }
+    , m_error_code(code){ }
 
-	Exception::Errors error_code() const
-	{
-		return m_error_code;
-	}
+    Exception::Errors error_code() const
+    {
+        return m_error_code;
+    }
 private:
-	Exception::Errors m_error_code;
+    Exception::Errors m_error_code;
 };
 
 struct InvalidMidQuote : public FeedException {
