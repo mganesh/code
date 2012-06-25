@@ -1,13 +1,143 @@
-A,100000,S,1,1075
-A,100001,B,9,1000
-A,100002,B,30,975
-A,100003,S,10,1050
-A,100004,B,10,950
-A,100005,S,2,1025
-A,100006,B,1,1000
-X,100004,B,10,950
-A,100007,S,5,1025
-A,100008,B,3,1050
-X,100008,B,3,1050
-X,100005,S,2,1025
-M,100007,S,4,1025
+#include <iostream>
+#include <sstream>
+#include <cstdlib> // for rand() and srand()
+#include <limits>
+#include <set>
+#include <map>
+
+using namespace std;
+
+static const uint64_t max_int = std::numeric_limits<int>::max();
+static const short max_short = std::numeric_limits<short>::max();
+
+struct Data {
+    uint64_t id;
+    double price;
+    uint16_t size;
+    bool removed;
+};
+
+class Test {
+private:
+    uint64_t m_high;
+    uint64_t m_low;
+    uint64_t m_unique;
+
+public:
+    explicit Test(uint64_t low=0, uint64_t high=max_int)
+        : m_high(high)
+          , m_low(low)
+          , m_unique(0)
+          , m_Lastrandom(0)
+    {
+        srand(time(0));
+    }
+
+    uint64_t getNext() {
+
+        while (1) {
+            m_Lastrandom = (m_low + rand() %(m_high-m_low+1));
+            value_type r = uniques.insert(m_Lastrandom);
+            if (r.second) return m_Lastrandom;
+            if (uniques.size() >= max_short) {
+                std::cerr << "out of range !! " << std::endl;
+                exit (0);
+            }
+        }
+    }
+
+    std::string newBuy() {
+
+        Data* _data = new Data();
+        _data->price = rand_FloatRange(100.0, 120.0);
+        _data->size = (m_Lastrandom%100); // max 100;
+        _data->id = getUnique();
+        _data->removed = false;
+
+        m_Bids.insert(Lookup::value_type(_data->id, _data));
+        std::ostringstream oss;
+        oss << "A,"
+            << _data->id << ","
+            << "B,"
+            << _data->size << ","
+            << _data->price;
+
+        return oss.str();
+    }
+
+    std::string newSell() {
+
+        Data* _data = new Data();
+        _data->price = rand_FloatRange(121.0, 140.0);
+        _data->size = (m_Lastrandom%100);
+        _data->id = getUnique();
+        _data->removed = false;
+        m_Asks.insert(Lookup::value_type(_data->id, _data));
+
+        std::ostringstream oss;
+        oss << "A,"
+            << _data->id << ","
+            << "S,"
+            << _data->size << ","
+            << _data->price;
+        return oss.str();
+    }
+
+    std::string getModify() {
+        uint8_t which = (m_Lastrandom%2);
+
+        if (which && m_Asks.size()) {
+
+            uint64_t index = m_Lastrandom%(m_Asks.size()-1);
+
+        }
+        else (m_Bids.size()) {
+            uint64_t index = m_Lastrandom%(m_Bids.size()-1);
+        }
+    }
+
+    float rand_FloatRange(float a, float b)
+    {
+        return ((b-a)*((float)rand()/RAND_MAX))+a;
+    }
+
+private:
+    typedef struct Data data;
+    typedef std::map<uint64_t, data*> Lookup;
+    Lookup m_Bids;
+    Lookup m_Asks;
+
+    uint64_t m_Lastrandom;
+    std::set<uint64_t> uniques;
+    typedef std::pair<std::set<uint64_t>::iterator, bool> value_type;
+
+    uint64_t getUnique() {
+        return ++m_unique;
+    }
+
+
+};
+
+const string Action = "AXMMAXMXAXAMXMA";
+const string Side   = "SBBSSBBSSBBSSBB";
+
+int main()
+{
+
+    Test t(0, max_short);
+    /* Create order book */
+    for (int nCount=0; nCount < 100; ++nCount)
+    {
+        uint8_t index = t.getNext()%(Side.size()-1);
+
+        if (Action[index] == 'M')
+
+        if (Side[index] == 'S')
+            std::cout << t.newSell() << std::endl;
+        else
+            std::cout << t.newBuy() << std::endl;
+
+    }
+
+    cout << endl;
+}
