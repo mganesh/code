@@ -2,7 +2,6 @@
 //  Order.h
 //  ExchangeFeed
 //
-//  Created by Ganesh M on 20/6/12.
 //
 
 #ifndef ExchangeFeed_Order_h

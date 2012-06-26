@@ -2,8 +2,7 @@
 //  OrderBook.h
 //  ExchangeFeed
 //
-//  Created by Ganesh M on 20/6/12.
-//  Copyright 2012 __MyCompanyName__. All rights reserved.
+//  Created by Ganesh M on 24/6/12.
 //
 
 #ifndef ExchangeFeed_OrderBook_h
@@ -22,6 +21,7 @@
 
 
 namespace feed {
+
     bool isAlmostSame(double, double);
     void split(const std::string& s, char delim, std::vector<std::string> &result);
 
@@ -77,6 +77,8 @@ private:
     uint64_t m_TotalFilledOrders;
     double   m_low;
     double   m_high;
+	uint64_t m_TotalModified;
+	uint64_t m_TotalRemoved;
 
 };
 

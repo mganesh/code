@@ -2,7 +2,7 @@
 //  OrderBook.cpp
 //  ExchangeFeed
 //
-//  Created by Ganesh M on 20/6/12.
+//  Created by Ganesh M on 24/6/12.
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -53,7 +53,11 @@ OrderBook::OrderBook(const std::string &symbol)
     , m_TotalInvalidMsg(0)
     , m_TotalFilledOrders(0)
     , m_low(std::numeric_limits<double>::max())
-    , m_high(-m_low) {
+    , m_high(-m_low) 
+	, m_TotalModified(0)
+    , m_TotalRemoved(0)
+
+{
 
 }
 
@@ -124,6 +128,7 @@ void OrderBook::processMsg(const std::string& msg) {
     else if (tokens[0] == "X") {
         // get order & check price & quantity matches
         remove(side, quantity, price, order_id);
+		++m_TotalRemoved;
     }
     else if (tokens[0] == "M") {
         OrderMap::iterator pos = m_OrderMap.find(order_id);
@@ -144,7 +149,7 @@ void OrderBook::processMsg(const std::string& msg) {
 
         original->setPrice(price);
         original->setQuantity(quantity);
-
+		++m_TotalModified;
     }
     else {
         // invalid action
@@ -185,7 +190,6 @@ void OrderBook::match(Order& newOrder) {
                 return;
             match(newOrder, bookOrder);
             if(!bookOrder.isOpen()) {
-                //remove_from_orderbook(it->second->getOrderId());
                 m_askOrders.erase(it);
             }
 
@@ -275,11 +279,18 @@ void OrderBook::add(Order& newOrder) {
 
     // Check any open order remaining
     if (newOrder.isOpen()) {
+		double price = newOrder.getPrice();
+
+		/* Standard does not comfirm the elements with equal_range
+		   will be stable. Provide hints (lower_bound & upper_bound)
+		   while inserting elements into the map
+		*/
+
         if (newOrder.getSide() == Order::BUY) {
-            m_bidOrders.insert(std::make_pair(newOrder.getPrice(), it));
+            m_bidOrders.insert(m_bidOrders.lower_bound(price), BidOrders::value_type(price, it));
         }
         else {
-            m_askOrders.insert(AskOrders::value_type(newOrder.getPrice(), it));
+            m_askOrders.insert(m_askOrders.upper_bound(price), AskOrders::value_type(price, it));
         }
     }
 }
@@ -455,6 +466,8 @@ void OrderBook::printSummary() {
         << "\nTotal Valid Msg       : " << m_TotalValidMsg
         << "\nTotal Invalid Msg     : " << m_TotalInvalidMsg
         << "\nTotal Quantity Filled : " << m_TotalFilledOrders
+		<< "\nTotal Orders removed  : " << m_TotalRemoved
+		<< "\nTotal Orders modified : " << m_TotalModified
         << "\nHigh Price            : " << m_high
         << "\nLow Price             : " << m_low
         ;

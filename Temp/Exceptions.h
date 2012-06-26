@@ -1,8 +1,6 @@
 //  Exceptions.h
 //  ExchangeFeed
 //
-//  Created by Ganesh M on 24/6/12.
-//  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
 #ifndef ExchangeFeed_Exceptions_h

@@ -2,7 +2,7 @@
 //  main.cpp
 //  ExchangeFeed
 //
-//  Created by Ganesh M on 20/6/12.
+//  Created by Ganesh M on 24/6/12.
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -18,10 +18,16 @@ int main (int argc, const char * argv[])
     uint64_t count=0;
 
     std::ifstream infile;
-    infile.open("./input.txt", std::ifstream::in);
+	if (argc < 2) {
+		std::cerr << "Usage: " << argv[0] << " <input filename>" << std::endl;
+		return -1;
+	}
+
+
+    infile.open(argv[1], std::ifstream::in);
     if (!infile.is_open()) {
         std::cerr << "Failed to open file!!" << std::endl;
-        return -1;
+        return -2;
     }
     
     std::string line;

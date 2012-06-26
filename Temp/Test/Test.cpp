@@ -62,8 +62,8 @@ bool Test::Next(std::ostream& line) {
     return true;
 }
 
-void Test::AutoPlay(std::ostream& os, bool debug) {
-    for(int i=0; i< m_nTestCases-1; ++i) {
+void Test::AutoPlay(std::ostream& os) {
+    for(uint64_t i=0; i< m_nTestCases-1; ++i) {
         if (Next(os) == false)
             return;
         os << std::endl;
@@ -139,7 +139,6 @@ test::Data* Test::GetRandomData(T &maps) {
     uint64_t index = (m_lastRandom%(maps.size()));
     
     typename T::iterator it = maps.begin();
-    assert(index >= 0);
     assert(maps.size() >= (size_t)index);
     std::advance(it, index);
     
@@ -152,7 +151,6 @@ test::Data* Test::ModifyData(T &maps, bool bid) {
     uint64_t index = (m_lastRandom%(maps.size()));
     
     typename T::iterator it = maps.begin();
-    assert(index >= 0);
     assert(maps.size() >= (size_t)index);
     std::advance(it, index);
     
@@ -229,7 +227,12 @@ std::string Test::RemoveOrderMsg() {
 
 }/* namespace */
 
-int main() {
-    test::Test t;
+int main(int argc, char** argv) {
+
+	uint64_t range = short_max;
+	if (argc >1)
+		range = ::atol(argv[1]);
+
+    test::Test t(range);
     t.AutoPlay(std::cout);
 }

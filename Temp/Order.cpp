@@ -2,7 +2,6 @@
 //  Order.cpp
 //  ExchangeFeed
 //
-//  Created by Ganesh M on 21/6/12.
 //
 
 #include <iostream>

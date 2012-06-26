@@ -46,13 +46,13 @@ private:
 	Lookup m_Bids;
 	Lookup m_Asks;
     
-    double m_bid_high;
     double m_bid_low;
+    double m_bid_high;
     
-    double m_ask_high;
     double m_ask_low;
+    double m_ask_high;
     
-    uint32_t m_nTestCases;
+    uint64_t m_nTestCases;
 	
 public:
 	explicit Test(uint32_t n = short_max
@@ -62,18 +62,18 @@ public:
 			, m_high(high)
 			, m_unique(0)
 			, m_lastRandom(0)
+            , m_Count(0)
             , m_bid_low(100.0)
             , m_bid_high(120.0)
             , m_ask_low(120.5)
             , m_ask_high(140)
-            , m_Count(0)
             , m_nTestCases(n)
 	{
 		srand(time(0));
 	}
 	
 	bool Next(std::ostream&);
-    void AutoPlay(std::ostream&, bool debug=false);
+    void AutoPlay(std::ostream&);
 	
 private:
 	uint64_t NextRandom();
