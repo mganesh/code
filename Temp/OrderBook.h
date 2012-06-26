@@ -47,7 +47,7 @@ private:
 
 public:
     void processMsg(const std::string& order_msg);
-    void printOrderBook();
+    void printOrderBook(std::ostream&);
     void printSummary();
 
 private:

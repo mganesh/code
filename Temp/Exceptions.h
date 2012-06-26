@@ -28,7 +28,22 @@ namespace Exception {
         INVALID_PRICE,
         INVALID_QUANTITY,
         INVALID_SIDE,
-        INVALID_MIDQUOTES
+        
+    };
+    
+    static const std::string ErrorString []= {
+        "Unknown                    ",
+        "Invalid Input Msg          ",
+        "Invalid Action             ",
+        "(Add) Illegal Order Id     ",
+        "(Add) Duplicate Order Id   ",
+        "(Modify) Invalid Order id  ",
+        "(Modify) Invalid Request   ",
+        "(Remove) Invalid Order id  ",
+        "(Remove) Invalid Request   ",
+        "Invalid Prices             ",
+        "Invalid Quantity           ",
+        "Invalid Side               "
     };
 }
 

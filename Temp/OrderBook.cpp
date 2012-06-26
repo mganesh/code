@@ -88,7 +88,8 @@ void OrderBook::processMsg(const std::string& msg) {
 
     try {
 
-    if (msg.empty()) return;
+        if (msg.empty())
+         return;
 
     ++m_TotalMsgProcessed;
 
@@ -127,7 +128,7 @@ void OrderBook::processMsg(const std::string& msg) {
     else if (tokens[0] == "M") {
         OrderMap::iterator pos = m_OrderMap.find(order_id);
         if (pos == m_OrderMap.end()) {
-            // duplicate order id;
+            //  order id not found
             std::ostringstream oss;
             oss << "Order id: " << order_id
                 << ", Not Found!!";
@@ -206,7 +207,6 @@ void OrderBook::match(Order& newOrder) {
 
             match(newOrder, bookOrder);
             if(!bookOrder.isOpen()) {
-                //remove_from_orderbook(it->second->getOrderId());
                 m_bidOrders.erase(it);
             }
 
@@ -231,7 +231,6 @@ void OrderBook::match(Order &newOrder, Order &bookOrder) {
 
         double price = bookOrder.getPrice();
         uint64_t quantity = std::min(newOrder.getOpenQuantity(), bookOrder.getOpenQuantity());
-
 
         newOrder.fill(price, quantity);
         bookOrder.fill(price, quantity);
@@ -339,8 +338,7 @@ void OrderBook::remove(Order::Side side
     }
 }
 
-void OrderBook::printOrderBook() {
-    std::ostringstream oss;
+void OrderBook::printOrderBook(std::ostream& oss) {
     oss << "\nOrder Book: "
         << "\n============";
 
@@ -372,7 +370,6 @@ void OrderBook::printOrderBook() {
         }
     }
 
-    std::cout << oss.str() << std::endl;
 }
 
 void OrderBook::printTradeStats() {
@@ -418,7 +415,7 @@ uint64_t OrderBook::getSize(const std::string &size) {
     char* end = NULL;
     static const long int max = std::numeric_limits<long int>::max();
     uint64_t value = strtol(size.c_str(), &end, 10);
-    if (!isUint(size) || errno != 0 || value < 0 || value >= max) {
+    if (!isUint(size) || errno != 0 || value >= max) {
         std::ostringstream oss;
         oss << "Illegal Quantity: " << size;
         throw InvalidOrder(Exception::INVALID_QUANTITY, oss.str());
@@ -430,10 +427,9 @@ uint64_t OrderBook::getOrderId(const std::string &orderid) {
     // Check for any errors
     char* end;
     errno = 0;
-    uint64_t result;
     static const long int max = std::numeric_limits<long int>::max();
     uint64_t value = strtoul(orderid.c_str(), &end, 10);
-    if ( !isUint(orderid) || errno != 0 || value < 0 || value >= max)
+    if ( !isUint(orderid) || errno != 0 || value >= max)
     {
         std::ostringstream oss;
         oss << "Illegal order id: " << orderid;
@@ -463,6 +459,16 @@ void OrderBook::printSummary() {
         << "\nLow Price             : " << m_low
         ;
 
+    IllegalMsg::iterator start = illegalMsg.begin();
+    IllegalMsg::iterator end = illegalMsg.end();
+    oss << "\nError Summary:";
+    oss << "\n~~~~~~~~~~~~~~~";
+    for(; start!= end; ++start) {
+        uint16_t index = start->first;
+        oss << "\n" << Exception::ErrorString[index] 
+            << " : " << start->second;
+    }
+        
     std::cout << oss.str() << std::endl;
 }
 
