@@ -415,7 +415,7 @@ uint64_t OrderBook::getSize(const std::string &size) {
     char* end = NULL;
     static const long int max = std::numeric_limits<long int>::max();
     uint64_t value = strtol(size.c_str(), &end, 10);
-    if (!isUint(size) || errno != 0 || value >= max) {
+    if (!isUint(size) || errno != 0 || value >= (uint64_t)max) {
         std::ostringstream oss;
         oss << "Illegal Quantity: " << size;
         throw InvalidOrder(Exception::INVALID_QUANTITY, oss.str());
@@ -429,7 +429,7 @@ uint64_t OrderBook::getOrderId(const std::string &orderid) {
     errno = 0;
     static const long int max = std::numeric_limits<long int>::max();
     uint64_t value = strtoul(orderid.c_str(), &end, 10);
-    if ( !isUint(orderid) || errno != 0 || value >= max)
+    if ( !isUint(orderid) || errno != 0 || value >= (uint64_t)max)
     {
         std::ostringstream oss;
         oss << "Illegal order id: " << orderid;

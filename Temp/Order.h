@@ -48,13 +48,13 @@ private:
     uint64_t m_orderId;
     Side m_side;
 
+    uint64_t m_quantity;
     double m_price;
     double m_lastExecutedPrice;
 
-    uint64_t m_quantity;
     uint64_t m_openQuantity;
-    uint64_t m_executedQuantity;
     uint64_t m_lastExecutedQuantity;
+    uint64_t m_executedQuantity;
 
 };
 }

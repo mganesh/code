@@ -18,10 +18,10 @@ Order::Order(uint64_t orderId,
 , m_side(side)
 , m_quantity(quantity)
 , m_price(price)
-, m_openQuantity(quantity)
-, m_executedQuantity(0)
 , m_lastExecutedPrice(0.0)
-, m_lastExecutedQuantity(0) {
+, m_openQuantity(quantity)
+, m_lastExecutedQuantity(0) 
+, m_executedQuantity(0) {
 
 }
 

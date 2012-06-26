@@ -67,15 +67,16 @@ private:
 private:
     BidOrders m_bidOrders;
     AskOrders m_askOrders;
+
     std::string m_symbol;
-    double m_LastTradedPrice;
     uint64_t m_LastTradedQuantity;
+    double m_LastTradedPrice;
     uint64_t m_TotalMsgProcessed;
     uint64_t m_TotalValidMsg;
     uint64_t m_TotalInvalidMsg;
     uint64_t m_TotalFilledOrders;
-    double   m_high;
     double   m_low;
+    double   m_high;
 
 };
 
