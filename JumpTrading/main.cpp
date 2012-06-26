@@ -36,7 +36,7 @@ int main (int argc, const char * argv[])
             orderbook.processMsg(line);
         }
         catch (const feed::FeedException& e) {
-            std::cerr << "Error[" << e.error_code() << "]: " << e.what() << std::endl;
+            //std::cerr << "Error[" << e.error_code() << "]: " << e.what() << std::endl;
         }
         if (++count%10 == 0)
             orderbook.printOrderBook(std::cout);

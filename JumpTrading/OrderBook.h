@@ -32,17 +32,14 @@ public:
     ~OrderBook();
 
 private:
-    typedef std::multimap<uint64_t, Order* > GenericOrders;
-    typedef GenericOrders::iterator pos;
+
+    typedef std::multimap<uint64_t, Order*> OrderMap;
+    typedef OrderMap::iterator pos;
 
     typedef std::multimap<double, pos, std::greater<double> > BidOrders;
     typedef std::multimap<double, pos, std::less<double> > AskOrders;
-
-    typedef std::multimap<uint64_t, Order*> OrderMap;
-    OrderMap m_OrderMap;
-
     typedef std::map<Exception::Errors, uint64_t> IllegalMsg;
-    IllegalMsg illegalMsg;
+
 
 
 public:
@@ -80,6 +77,8 @@ private:
 	uint64_t m_TotalModified;
 	uint64_t m_TotalRemoved;
 
+    OrderMap m_OrderMap;
+    IllegalMsg illegalMsg;
 };
 
 }
