@@ -30,6 +30,8 @@ int main (int argc, const char * argv[])
         return -2;
     }
     
+    clock_t start = clock();
+    
     std::string line;
     while (std::getline(infile, line)) {
         try {
@@ -42,7 +44,13 @@ int main (int argc, const char * argv[])
             orderbook.printOrderBook(std::cout);
     }
     orderbook.printOrderBook(std::cout);
-    orderbook.printSummary();
+    orderbook.printSummary(std::cout);
+    
+    clock_t elapsed = clock() - start;
+    
+    std::cout << "Elapsed time for " << count 
+              << " msg processing: " << (double)elapsed/CLOCKS_PER_SEC 
+              << " sec" << std::endl;
 
     return 0;
 }

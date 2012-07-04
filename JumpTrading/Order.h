@@ -42,6 +42,7 @@ public:
     double lastExecutedPrice() { return m_lastExecutedPrice; }
     uint64_t lastExecutedQuantity() { return m_lastExecutedQuantity; }
     uint64_t getOpenQuantity() { return m_openQuantity; }
+    uint64_t getExecutedQty() { return m_executedQuantity; }
 private:
 
     uint64_t m_orderId;

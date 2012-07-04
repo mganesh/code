@@ -33,7 +33,7 @@ public:
 
 private:
 
-    typedef std::multimap<uint64_t, Order*> OrderMap;
+    typedef std::map<uint64_t, Order*> OrderMap;
     typedef OrderMap::iterator pos;
 
     typedef std::multimap<double, pos, std::greater<double> > BidOrders;
@@ -45,7 +45,7 @@ private:
 public:
     void processMsg(const std::string& order_msg);
     void printOrderBook(std::ostream&);
-    void printSummary();
+    void printSummary(std::ostream&);
 
 private:
     void match(Order& newOrder, Order& bookOrder);
@@ -54,8 +54,8 @@ private:
     double getPrice(const std::string& price);
     uint64_t getSize(const std::string& size);
     void match(Order& newOrder);
-    void add(Order& newOrder);
-    void remove(Order::Side side, uint64_t quantity, double price, uint64_t &orderId);
+    bool add(Order& newOrder);
+    Order* remove(Order::Side side, uint64_t quantity, double price, uint64_t orderId);
     double getLastTradedPrice() { return m_LastTradedPrice; }
     uint64_t getLastTradedSize() { return m_LastTradedQuantity; }
     double midQuotes();

@@ -123,11 +123,14 @@ void OrderBook::processMsg(const std::string& msg) {
 
         Order* order = new Order(order_id, side,
                                  quantity, price);
-        add(*order);
+        bool added = add(*order);
+        if (!added)
+            delete order;
     }
     else if (tokens[0] == "X") {
         // get order & check price & quantity matches
-        remove(side, quantity, price, order_id);
+        Order* o = remove(side, quantity, price, order_id);
+        delete o;
 		++m_TotalRemoved;
     }
     else if (tokens[0] == "M") {
@@ -146,9 +149,22 @@ void OrderBook::processMsg(const std::string& msg) {
             oss << "Modify request, side mismatch in order request: " << order_id;
             throw InvalidOrder(Exception::INVALID_REQUEST_MODIFY, oss.str());
         }
+        
+        if (original->getExecutedQty() >= quantity) {
+            std::ostringstream oss;
+            oss << "Modify request, invalid quantity: " << order_id;
+            throw InvalidOrder(Exception::INVALID_REQUEST_MODIFY, oss.str());
+        }
+        
+        remove(original->getSide(), original->getQuantity(), original->getPrice(), original->getOrderId());
 
         original->setPrice(price);
         original->setQuantity(quantity);
+        
+        bool added = add(*original);
+        if (!added)
+            delete original;
+        
 		++m_TotalModified;
     }
     else {
@@ -264,7 +280,7 @@ void OrderBook::match(Order &newOrder, Order &bookOrder) {
 
 }
 
-void OrderBook::add(Order& newOrder) {
+bool OrderBook::add(Order& newOrder) {
 
     if (m_OrderMap.find(newOrder.getOrderId()) != m_OrderMap.end()) {
         std::ostringstream oss;
@@ -273,7 +289,7 @@ void OrderBook::add(Order& newOrder) {
         throw InvalidOrder(Exception::DUPLICATE_ORDER_ID, oss.str());
     }
 
-    OrderMap::iterator it = m_OrderMap.insert(std::make_pair(newOrder.getOrderId(), &newOrder));
+    OrderMap::iterator it = m_OrderMap.insert(std::make_pair(newOrder.getOrderId(), &newOrder)).first;
     // Check if any match found
     match(newOrder);
 
@@ -292,13 +308,18 @@ void OrderBook::add(Order& newOrder) {
         else {
             m_askOrders.insert(m_askOrders.upper_bound(price), AskOrders::value_type(price, it));
         }
+        return true;
     }
+
+    // Order is completely filled. clean it up
+    m_OrderMap.erase(it);
+    return false;
 }
 
-void OrderBook::remove(Order::Side side
+Order* OrderBook::remove(Order::Side side
                        , uint64_t quantity
                        , double price
-                       , uint64_t &orderId) {
+                       , uint64_t orderId) {
 
     // Order id valid ?
     OrderMap::iterator pos = m_OrderMap.find(orderId);
@@ -311,7 +332,7 @@ void OrderBook::remove(Order::Side side
     }
 
     Order* OriginalOrder = pos->second;
-    if (!OriginalOrder) return;
+    assert (OriginalOrder != NULL);
 
     if ( side != OriginalOrder->getSide()
         || quantity != OriginalOrder->getQuantity()
@@ -331,7 +352,6 @@ void OrderBook::remove(Order::Side side
             if (start->second->second->getOrderId() == orderId) {
                 // match found
                 m_bidOrders.erase(start);
-                return;
             }
         }
     }
@@ -343,10 +363,13 @@ void OrderBook::remove(Order::Side side
             if (start->second->second->getOrderId() == orderId) {
                 // match found
                 m_askOrders.erase(start);
-                return;
             }
         }
     }
+    
+    m_OrderMap.erase(pos);
+    return OriginalOrder;
+
 }
 
 void OrderBook::printOrderBook(std::ostream& oss) {
@@ -361,7 +384,7 @@ void OrderBook::printOrderBook(std::ostream& oss) {
         BidOrders::const_iterator end = m_bidOrders.end();
         for(; start != end; ++start) {
             oss << "\n\t"
-                << start->second->second->getOrderId() << "|"
+                //<< start->second->second->getOrderId() << "|"
                 << start->second->second->getOpenQuantity()
                 << "@" << start->first;
         }
@@ -375,12 +398,12 @@ void OrderBook::printOrderBook(std::ostream& oss) {
         AskOrders::const_iterator end = m_askOrders.end();
         for(; start != end; ++start) {
             oss << "\n\t"
-                << start->second->second->getOrderId() << "|"
+                //<< start->second->second->getOrderId() << "|"
                 << start->second->second->getOpenQuantity()
             << "@" << start->first;
         }
     }
-
+    oss << std::endl;
 }
 
 void OrderBook::printTradeStats() {
@@ -451,8 +474,8 @@ uint64_t OrderBook::getOrderId(const std::string &orderid) {
 
 }
 
-void OrderBook::printSummary() {
-    std::ostringstream oss;
+void OrderBook::printSummary(std::ostream& oss) {
+//    std::ostringstream oss;
 
     if (m_TotalFilledOrders == 0)
     {
@@ -482,7 +505,7 @@ void OrderBook::printSummary() {
             << " : " << start->second;
     }
         
-    std::cout << oss.str() << std::endl;
+    oss << std::endl;
 }
 
 }
