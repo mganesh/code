@@ -45,9 +45,15 @@ private:
 public:
     void processMsg(const std::string& order_msg);
     void printOrderBook(std::ostream&);
+<<<<<<< HEAD
+=======
+    void printOrderBook2(std::ostream&);
+>>>>>>> Sync
     void printSummary(std::ostream&);
 
 private:
+	void sell_orderbook();
+	void buy_orderbook();
     void match(Order& newOrder, Order& bookOrder);
     uint64_t getOrderId(const std::string& orderid);
     Order::Side getSide(const std::string& side);
@@ -62,8 +68,12 @@ private:
     void printTradeStats();
 
 private:
+
     BidOrders m_bidOrders;
     AskOrders m_askOrders;
+
+	std::ostringstream sell_ob;
+	std::ostringstream buy_ob;
 
     std::string m_symbol;
     uint64_t m_LastTradedQuantity;

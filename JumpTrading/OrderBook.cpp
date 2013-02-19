@@ -160,11 +160,20 @@ void OrderBook::processMsg(const std::string& msg) {
 
         original->setPrice(price);
         original->setQuantity(quantity);
+<<<<<<< HEAD
         
         bool added = add(*original);
         if (!added)
             delete original;
         
+=======
+
+		if (side == Order::SELL)
+			sell_orderbook();
+		else
+			buy_orderbook();
+
+>>>>>>> Sync
 		++m_TotalModified;
     }
     else {
@@ -289,7 +298,12 @@ bool OrderBook::add(Order& newOrder) {
         throw InvalidOrder(Exception::DUPLICATE_ORDER_ID, oss.str());
     }
 
+<<<<<<< HEAD
     OrderMap::iterator it = m_OrderMap.insert(std::make_pair(newOrder.getOrderId(), &newOrder)).first;
+=======
+	uint64_t filled = m_TotalFilledOrders;
+    OrderMap::iterator it = m_OrderMap.insert(std::make_pair(newOrder.getOrderId(), &newOrder));
+>>>>>>> Sync
     // Check if any match found
     match(newOrder);
 
@@ -304,16 +318,28 @@ bool OrderBook::add(Order& newOrder) {
 
         if (newOrder.getSide() == Order::BUY) {
             m_bidOrders.insert(m_bidOrders.lower_bound(price), BidOrders::value_type(price, it));
+			buy_orderbook();
         }
         else {
             m_askOrders.insert(m_askOrders.upper_bound(price), AskOrders::value_type(price, it));
+			sell_orderbook();
         }
         return true;
     }
 
+<<<<<<< HEAD
     // Order is completely filled. clean it up
     m_OrderMap.erase(it);
     return false;
+=======
+	if (filled != m_TotalFilledOrders) {
+		if (newOrder.getSide() == Order::BUY) {
+			sell_orderbook();
+		}
+		else
+			buy_orderbook();
+	}
+>>>>>>> Sync
 }
 
 Order* OrderBook::remove(Order::Side side
@@ -352,6 +378,11 @@ Order* OrderBook::remove(Order::Side side
             if (start->second->second->getOrderId() == orderId) {
                 // match found
                 m_bidOrders.erase(start);
+<<<<<<< HEAD
+=======
+				buy_orderbook();
+                return;
+>>>>>>> Sync
             }
         }
     }
@@ -363,6 +394,11 @@ Order* OrderBook::remove(Order::Side side
             if (start->second->second->getOrderId() == orderId) {
                 // match found
                 m_askOrders.erase(start);
+<<<<<<< HEAD
+=======
+				sell_orderbook();
+                return;
+>>>>>>> Sync
             }
         }
     }
@@ -372,7 +408,58 @@ Order* OrderBook::remove(Order::Side side
 
 }
 
-void OrderBook::printOrderBook(std::ostream& oss) {
+void OrderBook::buy_orderbook() {
+	buy_ob.clear();
+	buy_ob.seekp(0); // for outputs
+
+	buy_ob << "\nBuy: ";
+	if (m_bidOrders.empty()) {
+		buy_ob << "\n\tEmpty"; 
+	}
+	else {
+        BidOrders::const_iterator start = m_bidOrders.begin();
+        BidOrders::const_iterator end = m_bidOrders.end();
+        for(; start != end; ++start) {
+            buy_ob << "\n\t"
+                << start->second->second->getOpenQuantity()
+                << "@" << start->first;
+        }
+	}
+
+	buy_ob << std::ends;
+}
+
+void OrderBook::sell_orderbook() {
+	sell_ob.clear();
+	sell_ob.seekp(0); // for outputs
+
+	sell_ob << "\nSell: ";
+	if (m_askOrders.empty()) {
+		sell_ob << "\n\tEmpty"; 
+	}
+	else {
+        AskOrders::const_iterator start = m_askOrders.begin();
+        AskOrders::const_iterator end = m_askOrders.end();
+        for(; start != end; ++start) {
+            sell_ob << "\n\t"
+                << start->second->second->getOpenQuantity()
+                << "@" << start->first;
+        }
+	}
+
+	sell_ob << std::ends;
+}
+
+void OrderBook::printOrderBook2(std::ostream& os) {
+	os << buy_ob.str();
+	os << sell_ob.str();
+	os << std::endl;
+	return;
+}
+
+void OrderBook::printOrderBook(std::ostream& os) {
+	std::ostringstream oss;
+	//oss.sync_with_stdio(false);
     oss << "\nOrder Book: "
         << "\n============";
 
@@ -384,7 +471,10 @@ void OrderBook::printOrderBook(std::ostream& oss) {
         BidOrders::const_iterator end = m_bidOrders.end();
         for(; start != end; ++start) {
             oss << "\n\t"
+<<<<<<< HEAD
                 //<< start->second->second->getOrderId() << "|"
+=======
+>>>>>>> Sync
                 << start->second->second->getOpenQuantity()
                 << "@" << start->first;
         }
@@ -398,12 +488,20 @@ void OrderBook::printOrderBook(std::ostream& oss) {
         AskOrders::const_iterator end = m_askOrders.end();
         for(; start != end; ++start) {
             oss << "\n\t"
+<<<<<<< HEAD
                 //<< start->second->second->getOrderId() << "|"
+=======
+>>>>>>> Sync
                 << start->second->second->getOpenQuantity()
             << "@" << start->first;
         }
     }
+<<<<<<< HEAD
     oss << std::endl;
+=======
+
+	os << oss.str() << std::endl;
+>>>>>>> Sync
 }
 
 void OrderBook::printTradeStats() {
@@ -474,8 +572,13 @@ uint64_t OrderBook::getOrderId(const std::string &orderid) {
 
 }
 
+<<<<<<< HEAD
 void OrderBook::printSummary(std::ostream& oss) {
 //    std::ostringstream oss;
+=======
+void OrderBook::printSummary(std::ostream& os) {
+    std::ostringstream oss;
+>>>>>>> Sync
 
     if (m_TotalFilledOrders == 0)
     {
@@ -505,7 +608,11 @@ void OrderBook::printSummary(std::ostream& oss) {
             << " : " << start->second;
     }
         
+<<<<<<< HEAD
     oss << std::endl;
+=======
+    os << oss.str() << std::endl;
+>>>>>>> Sync
 }
 
 }
