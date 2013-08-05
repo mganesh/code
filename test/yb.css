@@ -1,0 +1,1520 @@
+/* 
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+/* Top level Containers */
+
+
+body
+{
+    background-color: #A6A6A6;
+    color: #454545;
+    font-size: 10pt;
+}
+
+.container
+{
+    width: 1054px;
+    margin-right: auto;
+    margin-left: auto;
+    height: auto;
+    overflow: hidden;
+}
+
+
+.cont-col-1
+{
+    width: 253px;
+    height: inherit;
+    float: left;
+    background-color: #FAFAFA;
+    padding-bottom: 30000px;
+    margin-bottom: -30000px;
+    overflow: hidden;
+
+}
+
+.cont-col-2
+{
+    width: 801px;
+    height: inherit;
+    float: left;
+    background-color: #FAFAFA;
+    padding-bottom: 30000px;
+    margin-bottom: -30000px;
+}
+
+/* Top Menu corresponding to M2M Innovations Site */
+
+
+.top-menu
+{
+    float: left;
+    background-color: #374757;
+    width:100%;
+    height: 36px;
+    position: relative;
+}
+
+
+.top-menu-fst-item
+{
+    float: left;
+    margin-left: 5px;
+    margin-top: 6px;
+    color: #FFFFFF;
+}
+
+.top-menu-item
+{
+    float: left;
+    margin-left: 50px;
+    margin-top: 6px;
+    color: #FFFFFF;
+}
+
+.m2m-logo
+{
+    float: right;
+    margin-right: 10px;
+}
+
+.service-menu-box
+{
+
+    float: left;
+    margin-left: 18px;
+    width: 200px;
+    padding-bottom: 30000px;
+    margin-bottom: -30000px;
+    -moz-box-shadow: 0 0 5px 5px #888;
+    -webkit-box-shadow: 0 0 5px 5px #888;
+    box-shadow: 0 0 2px 3px #888;
+    background-color: #FAFAFA;
+
+filter: 
+  progid:DXImageTransform.Microsoft.Shadow(color=#888888,direction=90,strength=5),
+
+
+  progid:DXImageTransform.Microsoft.Shadow(color=#888888,direction=270,strength=5);
+
+}
+.serv-menu-lbl
+{
+    float: left;
+    color: white;
+    margin-left: 18px;
+    margin-top: 5px;
+}
+
+.serv-menu-val
+{
+    float: left;
+    margin-left: 30px;
+    margin-top: 5px;
+    background-color: #4E657E;
+    height: 25px;
+    width: 130px;
+    color: white;
+    border: 0px;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 3px;
+}
+
+.yb-logo
+{
+    clear: both;
+    float: left;
+    margin-top: 10px;
+    margin-left: 40px;
+}
+
+.welc-msg
+{
+    clear: both;
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    color: red;
+    font-size: 15pt;
+    font-style: italic;
+   
+}
+
+.menu-container
+{
+    clear: both;
+    float: left;
+    width: inherit;
+ 
+}
+
+.menu-container ul
+{
+    list-style-type: none;
+    width: inherit;
+   
+    display: inline;
+}
+
+.serv-menu-item-box
+{
+    clear: both;
+    width: 180px;
+    height: inherit;
+    float: left;
+    border-bottom: 1px dashed lightgray;
+    color: #A6A6A6;
+}
+
+.serv-menu-item-box a
+{
+    color: #A6A6A6;
+}
+
+.serv-cur-menu-item
+{
+    background: #FAFAFA url('Menu-mouseover.png') no-repeat;
+    color: white;
+    clear: both;
+    width: 180px;
+    height: 35px;
+    float: left;
+}
+.serv-cur-menu-item a
+{
+    color: white;
+}
+
+.serv-menu-item
+{
+    float: right;
+    margin-right: 40px;
+    margin-top: 3px;
+    font-size: 11pt;
+}
+
+.yb-kid-lbl
+{
+    float: left;
+    margin-left: 40px;
+    margin-top: 20px;
+    font-weight: bold; }
+
+.yb-kid-val
+{
+    float: left;
+    margin-left: 10px;
+    margin-top: 20px;
+    width: 110px;
+}
+
+.yb-kid-img-blk
+{
+    float: left;
+    width: 100px;
+    margin-left: 40px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 3px;
+    -moz-box-shadow: 0 0 5px 5px #888;
+    -webkit-box-shadow: 0 0 5px 5px#888;
+    box-shadow: 0 0 2px 1px #888;
+filter: 
+  progid:DXImageTransform.Microsoft.Shadow(color=#888888,direction=135,strength=5);
+border:1px solid grey;
+}
+.flt-lft
+{
+    float: left;
+
+}
+.flt-lft1
+{
+    float: left;
+width:100%;
+
+}
+
+.flt-rght
+{
+    float: right;
+}
+
+
+.yb-kid-img-nam
+{
+    clear: left;
+    float: left;
+    text-align: center;
+width:100%;
+ filter: progid:DXImageTransform.Microsoft.DropShadow(
+      offx=0, offy=0, color=#aaaaaa);
+
+}
+
+
+/* Footer in any YB Page */
+
+
+.footer
+{
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1054px;
+    height: 30px;
+    color: white;
+}
+
+.footer-box
+{
+    float: left;
+    margin-top: 0px;
+    background-color: #374757;   
+    width: inherit;
+    height: inherit;
+    border: 1px solid gray;
+    margin-left: -1px;
+}
+
+.footer-adj-lft
+{
+    float: left;
+    margin-left: 20px;
+    margin-top: 4px;
+}
+
+.footer-adj-rht
+{
+    float: right;
+    margin-right: 20px;
+    margin-top: 4px;
+}
+
+
+/* Content of DASHBOARD Page */
+
+
+#school-dash-result
+{
+    display: none;
+}
+
+.dash-col-1
+{
+    float: left;
+    width: 380px;
+    height: inherit;
+}
+
+.dash-col-2
+{
+    float: left;
+    width: 380px;
+    height: inherit;    
+}
+
+.ibox-outer 
+{
+    float: left;
+    width:360px;
+    top: 30px;
+    left: 20px;
+    line-height: 240%;
+    height: inherit;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #D7D7D7;
+}
+
+.buddies-widg
+{
+    top: 50px;
+}
+
+.buddies-num
+{
+    float: right;
+    margin-right: 10px;
+}
+
+.buddy-img
+{
+    float: left;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+.buddies-lst
+{
+    display:inline-block;
+    list-style-type: none;
+    align:left;
+float:left;
+}
+
+.bud-lst-nme-lbl
+{
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.dash-widg-arr
+{
+    float: left;
+    width: 30px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.top-marg-10
+{
+    margin-top: 10px;
+}
+
+.top-marg-30
+{
+    margin-top: 30px;
+}
+
+.mb-widg
+{
+    margin-top: 30px;
+}
+
+.ibox-tab
+{
+    border-left: 1px solid #D7D7D7;
+    border-top: 1px solid #D7D7D7;
+    border-right: 1px solid #D7D7D7;
+  
+    color: #597A9E;
+    width:100px;
+    text-align:center;
+    float: left;
+    font-weight:bold;
+}
+
+.ibox-tab-clkble
+{
+    background-color: #D7D7D7;
+    color: #454545;
+    width:150px;
+    text-align:center;
+    float: left;
+    font-weight:bold;
+    margin-left: 10px;
+}
+
+.ibox-tab-pseudo
+{
+    border-bottom: 1px solid #D7D7D7;
+    width:255px;
+    text-align:center;
+    float: left;
+}
+
+.adj-height-32px
+{
+    margin-top: 32px;
+}
+
+.adj-top-50px
+{
+    margin-top: 50px;
+}
+
+.dotted 
+{
+    clear: left;
+    float: left;
+    margin-left: 102px;
+    border: 0px dotted #D7D7D7;
+
+    width: 255px;
+}
+
+.ibox-inner
+{
+    float: left;
+    width: 100%;
+    line-height: 240%;
+    /* border-bottom: 1px solid #D7D7D7; */
+}
+
+.dash-arrow
+{
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.widget-card
+{
+    
+    display: block;
+    width:348px;
+    margin-left: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #EDEDED;
+    background-color: white;
+    padding: 5px;
+}
+
+.abs-lft-140
+{
+    font-style: italic;
+    font-weight: normal;
+    position: absolute;
+    left: 140px;
+}
+
+.abs-lft-240
+{
+    font-style: italic;
+    font-weight: normal;
+    position: absolute;
+    left: 240px;
+}
+
+.dash-box
+{
+    float: left;
+    width: 350px;
+    margin-left: 10px;
+    line-height: 150%;
+
+    padding-bottom: 10px;
+}
+
+.dash-param
+{
+    float: left;
+    width: 310px;
+    margin-left: 5px;
+    margin-top: 6px;
+}
+
+.dash-param-lbl
+{
+    float: left;
+    width: 140px;
+}
+
+.dash-param-val
+{
+    float: left;
+    width: 160px;
+}
+
+.dash-param-adj-180
+{
+    width: 190px;
+}
+
+.dash-param-adj-120
+{
+    width: 110px;
+}
+
+.mb-msg-name
+{
+    float: left;
+    margin-left: 10px;
+}
+
+.mb-msg-date
+{
+    float: left;
+    font-style: italic;
+}
+
+.mb-msg-body
+{
+    float: left;
+    line-height: 140%;
+    margin-left: 10px;
+}
+
+.mb-more
+{
+    margin-left: 5px;
+}
+
+/* Content for COMMUNICATIONS Page */
+
+
+.comm-post-title
+{
+    clear: left;
+    float: left;
+    margin-top: 10px;
+    color: #597A9E;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 11pt;
+}
+
+.post-msg-box
+{
+    clear: left;
+    float: left;
+    width: 730px;
+    border: 1px solid lightgray;
+    padding: 10px;
+}
+
+.msg-area
+{
+    width: 480px;
+    height: 20px;
+}
+
+.post-msg-cat
+{
+    float: right;
+    margin-right: 10px;
+}
+
+.post-msg-cat-sel
+{
+    float: right;   
+    margin-right: 10px;
+}
+
+.post-msg-buton
+{
+    float: right;
+}
+
+.comm-main-msg
+{
+    float: left;
+    width: 750px;
+    margin-top: 15px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px #888;
+    box-shadow: 0 0 3px #888;
+    background-color: white;
+
+}
+
+.comm-usr-pic
+{
+    float: left;
+    padding: 5px;
+}
+
+.comm-msg-cont
+{
+    float: left;
+    width: 670px;
+    margin-left: 10px;
+    line-height: 160%;
+}
+
+.comm-msg-body
+{
+    clear: left;
+    float: left;
+    width: inherit;
+    padding-bottom: 5px;
+}
+
+.comm-comnt-msg
+{
+    float: left;
+    width: 685px;
+    margin-top: 15px;
+    margin-left: 65px;
+}
+
+.comm-cmnt-cont
+{
+    float: left;
+    width: 610px;
+    margin-left: 10px;
+    line-height: 160%;
+
+}
+
+.comment-sep
+{
+    clear: left;
+    float: left;
+    border-top: 1px dotted #D7D7D7;
+    width: 685px;
+    margin-left: 65px;
+ margin-top:5px;
+    padding-bottom:1px;
+font-size:1pt;
+}
+
+.t-stamp
+{
+    float: left;
+    margin-left: 2px;
+    color: #597A9E;
+    font-style: italic;
+}
+
+.msg-sndr
+{
+    float: left;
+    color: #597A9E;
+    font-weight: bold;
+}
+
+.msg-rw-sep
+{
+    clear: left;
+    float: left;
+    border: 1px dotted #D7D7D7;
+    width: 700px;
+    margin-top: 5px;
+}
+
+.adj-bottom-10px
+{
+    margin-bottom: 10px;
+}
+
+
+/* Content for BUS STAFF Page */
+
+
+.staff-col-sep
+{
+    margin-left: 10px;
+}
+
+.complain-buton
+{
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.appre-buton
+{
+    margin-left: 0px;
+    margin-top: 10px;
+}
+
+.staff-img
+{
+    float: left;
+    width: 100px;
+    border: 5px solid #EFEFEF;
+}
+
+.person-det
+{
+    float: left;
+    width: 120px;
+    color: #597A9E;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+
+/* Content for REPORTS Page */
+
+
+.rep-route-lbl
+{
+    clear: left;
+    float: left;
+    margin-left: 0px;
+    margin-top: 20px;
+}
+
+.rep-date-lbl
+{
+    float: left;
+    margin-left: 15px;
+    margin-top: 20px;
+}
+
+.rep-genral-val
+{
+    float: left;
+    margin-left: 6px;
+    margin-top: 20px;
+    width: 100px;
+}
+
+.rep-lft-grph
+{
+    float: left;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.rep-grph-title
+{
+    float: left;
+    color: #597A9E;
+    font-weight: bold;
+}
+
+.rep-grph-img
+{
+    clear: left;
+    float: left;
+    width: 360px;
+    height: 250px;
+    border: 1px solid gray;
+    margin-top: 5px;
+}
+
+.rep-rght-grph
+{
+    float: left;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    width: 360px;
+}
+
+.rep-show-buton
+{
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+
+/* Content for Visualization Page */
+
+
+.vis-gen-lbl
+{
+    clear: left;
+    float: left;
+    margin-top: 20px;
+}
+
+.vis-date-lbl
+{
+    clear: left;
+    float: left;
+}
+
+.vis-gen-val
+{
+    clear: left;
+    float: left;
+    width: 110px;
+}
+.vis-col
+{
+width:800px;
+}
+.vis-col-1
+{
+    float: left;
+    width: 220px;
+}
+
+.vis-col-2
+{
+    float: left;
+    width: 570px;
+}
+
+.vis-map-img
+{
+    float: right;
+    width: 570px;
+    height: 540px;
+    border: 1px solid gray;
+    margin-top: 20px;
+    margin-left: -10px;
+    margin-bottom: 5px;
+}
+
+.vis-stop-cont
+{
+    clear: both;
+    float: left;
+    width: inherit;
+    margin-left: -20px;
+}
+
+.vis-stop-cont ol
+{
+    list-style-type: decimal;
+    width: inherit;
+    display: inherit;
+    line-height: 180%;
+}
+
+.vis-stop-item-box
+{
+    clear: both;
+    width: 180px;
+    height: inherit;
+    float: left;
+    color: #A6A6A6;
+}
+
+.vis-cur-stop-item
+{
+    background: red;
+    color: grey;
+    clear: both;
+    width: 150px;
+    height: inherit;
+    float: left;
+}
+
+.vis-stop-item
+{
+    float: left;
+    margin-left: 5px;
+}
+
+.vis-cur-stop-colr
+{
+    color: white;
+}
+
+.vis-filt-box
+{
+    float: right;
+    border-top: 1px solid gray; 
+    border-bottom: 1px solid gray;
+    border-right: 1px solid gray;
+  
+    margin-top: 20px;
+    padding-left: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-left: -34px;
+    -moz-box-shadow: 0 0 5px 5px #888;
+    -webkit-box-shadow: 0 0 5px 5px#888;
+    box-shadow: 0 0 1px 1px #888;
+    background-color: #FAFAFA;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#aaaaaa,direction=0,strength=2), 
+progid:DXImageTransform.Microsoft.Shadow(color=#888888,direction=270,strength=5),
+progid:DXImageTransform.Microsoft.Shadow(color=#888888,direction=180,strength=5); 
+
+
+
+}
+
+.vis-show-buton
+{
+    float: left;
+    margin-left: 20px;
+}
+
+.vis-stop-title
+{
+    clear: left;
+    float: left;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+
+/* Content for Settings Page */
+
+
+.set-param-val
+{
+    float: left;
+    width: 100px;
+}
+
+.set-notif-title
+{
+    clear: left;
+    float: left;
+    font-weight: bold;
+    margin-top: 20px;
+ width:100%}
+
+.set-notif-cont
+{
+    clear: both;
+    float: left;
+    width: inherit;
+}
+
+.set-notif-cont ul
+{
+    list-style-type: none;
+    display: inline;
+    line-height: 180%;
+}
+
+.set-notif-item
+{
+    float: left;
+    margin-left: 5px;
+}
+
+.set-menu-item
+{
+    clear: left;
+    float: left;
+}
+
+.zero-margin-l
+{
+    margin-left: 0px;
+}
+
+
+/* Content for Routes Page */
+
+
+.route-col
+{
+    float: left;
+    width: 250px;
+
+}
+
+.route-search
+{
+    float: left;
+    width: 230px;
+    border: 1px solid #EDEDED;
+    border: 1px solid #D7D7D7;
+    padding: 5px;
+    background-color: white;
+    margin-bottom: 5px;
+}
+
+.route-title-line
+{
+    clear: left;
+    float: left;
+    margin-top: 5px;
+    border-top: 1px dashed #D7D7D7;
+    width: 215px;
+font-size:1pt;
+}
+
+.route-gen-lbl-1
+{
+    clear: left;
+    float: left;
+    margin-top: 10px;
+}
+
+.route-gen-lbl-2
+{
+    float: left;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.route-gen-val
+{
+    clear: left;
+    float: left;
+    width: 100px;
+}
+
+.first-route
+{
+    clear: left;
+    float: left;
+}
+
+.next-route
+{
+    float: left;
+}
+
+.route-box-v-gap
+{
+    float: left;
+    margin-top: 10px;
+}
+
+.route-box-h-gap
+{
+    float: left;
+    margin-left: 10px;
+}
+
+.route-box-2h-gap
+{
+    float: left;
+    margin-left: 20px;
+}
+
+.route-details
+{
+    float: left;
+    width: 210px;
+    background-color: white;
+    margin-top: 0px;
+    padding: 10px;
+
+}
+
+.a-route-mem
+{
+    float: left;
+    width: 210px;
+    line-height: 150%;
+    color: #454545;
+}
+
+.route-param
+{
+    float: left;
+    width: 220px;
+    margin-top: 10px;
+
+}
+
+.route-param-lbl
+{
+    float: left;
+    width: 110px;
+}
+
+.route-param-val
+{
+    float: left;
+    width: 110px;
+}
+
+.route-det-val
+{
+    float: left;
+    width: 100px;
+}
+
+.route-stop-val
+{
+    float: left;
+    width: 100px;
+    height: 25px;
+}
+
+.route-trip-val
+{
+    float: left;
+    width: 100px;
+    height: 25px;
+}
+
+.route-create-buton
+{
+    float: right;
+}
+
+.route-sub-buton
+{
+    margin-top: 10px;
+    float: right;
+}
+
+.clear-both
+{
+    clear: both;
+}
+
+.route-sub-title
+{
+    font-weight: bold;
+    color: #597A9E;
+}
+
+.route-add-stop
+{
+    clear: left;
+    float: left;
+    margin-top: 10px;
+}
+
+
+/* Content for STUDENTS-School Page */
+
+
+.stud-param-lbl
+{
+    float: left;
+    width: 100px;
+
+}
+
+.stud-search-param
+{
+    float: left;
+    width: 140px;
+    margin-top: 15px;
+
+}
+
+.adj-width-20px
+{
+    margin-left: 20px;
+}
+
+.adj-width-110px
+{
+    margin-left: 110px;
+}
+
+/* Content for BUSES Page */
+
+
+.bus-param
+{
+    float: left;
+    width: 320px;
+}
+
+.bus-param-lbl
+{
+    float: left;
+    width: 170px;
+    font-weight: bold;
+}
+
+.bus-param-val
+{
+    float: left;
+    width: 120px;
+}
+
+.bus-card
+{
+    float: left;
+    width: 320px;
+    line-height: 150%;
+    padding: 10px;
+    background-color: white;
+    margin-top: 2px;
+    margin-bottom: 5px;
+    -moz-box-shadow: 0 0 5px 5px #888;
+    -webkit-box-shadow: 0 0 5px 5px#888;
+    box-shadow: 0 0 1px 0px #888;
+filter: 
+  progid:DXImageTransform.Microsoft.Shadow(color=#aaaaaa,direction=0,strength=2),
+
+
+  progid:DXImageTransform.Microsoft.Shadow(color=#aaaaaa,direction=90,strength=2),
+
+  progid:DXImageTransform.Microsoft.Shadow(color=#aaaaaa,direction=180,strength=2),
+
+
+  progid:DXImageTransform.Microsoft.Shadow(color=#aaaaaa,direction=270,strength=2);
+}
+
+.bus-icon-cont
+{
+    float: left;
+    width: 350px;
+    margin-top: 10px;
+}
+
+.bus-del-icon
+{
+    float: right;
+    margin-right: 10px;
+}
+
+.bus-edit-icon
+{
+    float: right;
+    margin-right: 10px;
+}
+
+
+/* CSS Elements used across multiple Pages */
+
+
+.entity-card
+{
+    float: left;
+    width: 360px;
+    background-color: white;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    -moz-box-shadow: 0 0 5px 5px #888;
+    -webkit-box-shadow: 0 0 5px 5px#888;
+    box-shadow: 0 0 1px 0px #888;
+    padding: 10px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#aaaaaa,direction=0,strength=2), 
+progid:DXImageTransform.Microsoft.Shadow(color=#aaaaaa,direction=90,strength=2), 
+progid:DXImageTransform.Microsoft.Shadow(color=#aaaaaa,direction=180,strength=2),
+progid:DXImageTransform.Microsoft.Shadow(color=#aaaaaa,direction=270,strength=2); 
+
+
+
+}
+
+.entity-in-card
+{
+    float: left;
+    width: 230px;
+    line-height: 150%;
+    color: #454545;
+    border: 0px solid;
+}
+
+.entity-param
+{
+    float: left;
+    width: 230px;
+}
+
+.entity-param-lbl
+{
+    float: left;
+    width: 110px;
+    font-weight: bold;
+}
+
+.entity-param-val
+{
+    float: left;
+    width: 110px;
+}
+
+.buton-decor
+{
+    font-size: 7pt;
+    font-weight: bold;
+    letter-spacing: 0px;
+    height: 26px;
+    line-height: 24px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 3px;
+    color: #597A9E;
+    border: 1px solid #597A9E;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.new-entity-buton
+{
+    clear: left;
+    float: left;
+    margin-top: 10px;
+}
+
+.generic-buton
+{
+    float: left;
+    margin-left: 20px;
+    margin-top: 25px;
+}
+
+.filter-box
+{
+    float: left;
+    width: 730px;
+    border: 1px solid #EDEDED;
+    padding: 10px;
+    background-color: white;
+}
+
+.box-title
+{
+    float: left;
+    color: #597A9E;
+    font-size: 11pt;
+}
+
+
+.box-title-line
+
+{
+    clear: left;
+
+    float: left;
+  
+  margin-top: 5px;
+
+    border-top: 1px dotted #D7D7D7;
+
+
+
+    width: 730px;
+font-size:1pt;
+
+}
+
+.plain-gen-val
+{
+    clear: left;
+    float: left;
+    width: 130px;
+}
+
+.drop-down
+{
+    background-color: #A6A6A6;
+    color: white;
+    height: 25px;
+    text-align: center;
+    font-size: 9pt;
+}
+
+/* Pop-up CSS elements */
+
+.web_dialog_overlay
+{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #000000;
+    opacity: .15;
+    filter: alpha(opacity=15);
+    -moz-opacity: .15;
+    z-index: 101;
+    display: none;
+}
+.popup
+{
+    display: none;
+    position: fixed;
+    width: 380px;
+    top: 50%;
+    left: 50%;
+    margin-left: -190px;
+    margin-top: -100px;
+    background-color: #ffffff;
+    border: 2px solid #D7D7D7;
+    padding: 10px;
+    z-index: 102;
+    font-family: Verdana;
+    font-size: 10pt;
+    -moz-box-shadow: 0 0 5px 5px #888;
+    -webkit-box-shadow: 0 0 5px 5px #888;
+    box-shadow: 0 0 1px 2px #888;
+}
+
+.popup-title
+{
+    border-bottom: solid 1px #D7D7D7;
+    background-color: white;
+    padding: 4px;
+    color: #597A9E;
+    font-weight:bold;
+}
+
+.popup-title a
+{
+    float: right;
+    color: #597A9E;
+    text-decoration: none;
+}
+
+.stud-pop-param
+{
+    float: left;
+    width: 290px;
+}
+
+.stud-pop-lbl
+{
+    float: left;
+    width: 120px;
+    font-weight: bold;
+}
+
+.stud-pop-val
+{
+    float: left;
+    width: 160px;
+}
+
+.stud-card
+{
+    float: left;
+    margin-top: 10px;
+    border: 1px dotted #D7D7D7;
+    padding: 5px;
+    font-size: 8pt;
+}
+
+.stud-pic
+{
+    float: left;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 10px;
+}
+
+
+/* CSS for YB-School -> Reports -> Snapshot */
+
+
+#box-table-a
+{
+    float: left;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 12px;
+    margin: 0px;
+    margin-top: 20px;
+    width: 480px;
+    text-align: left;
+    
+    table-layout: fixed;
+white-space: pre-wrap;
+    
+}
+
+#box-table-a th
+{
+    font-size: 13px;
+    font-weight: normal;
+    padding: 8px;
+    background: #537A9E;
+    color: white;
+}
+
+tr.even
+{
+    background-color: #D7D7D7;
+}
+
+#box-table-a td
+{
+    padding: 8px;
+    color: #669;
+    background-color: #D7D7D7;
+    text-align: center;
+}
+tr
+{
+    border-bottom: 5px solid white;
+}
+
+th.db-s-no
+{
+    width: 20px;
+}
+.tab-indent
+{
+
+    margin-left: 10px;
+}
+
+#rep-vehicle
+{
+    display: none;
+}
